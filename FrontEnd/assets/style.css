@@ -135,7 +135,7 @@ li:hover {
 	gap:15px;
 	margin-bottom: 20px;
 }
-.filterSection_filter{
+.filterSection li{
 	cursor: pointer;
 	padding: 10px 25px 10px 25px;
 	border: 1px solid #1D6154;
