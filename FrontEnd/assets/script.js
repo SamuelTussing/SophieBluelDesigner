@@ -40,7 +40,7 @@ for (i=0; i<data.length;i++){
 
 }
 //nbrcategory=3, on doit créer des variables avec nom category dynamiquement
-let category=0
+
 let category1=data[0].category.name
 let category2=data[1].category.name
 let category3=data[2].category.name
