@@ -140,6 +140,8 @@ input{
     width: 180px;
     margin: 30px;
     font-size: 14px;
+	position: relative;
+    left: 20%;
 }
 #connexion:hover{
     transform: scale(1.05);
@@ -156,4 +158,16 @@ input{
 }
 #mdp_oublie:hover{
     font-weight: 700;
+}
+header a{
+	text-decoration: none;
+	color: black;
+}
+form{
+	display: flex;
+    flex-direction: column;
+}
+#mdp_oublie{
+	position: relative;
+    left: 33%;
 }
