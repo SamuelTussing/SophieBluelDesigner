@@ -275,7 +275,7 @@ footer nav ul {
 }
 
 .modal {
-	display: block; /* Hidden by default */
+	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
 	padding-top: 100px; /* Location of the box */
@@ -297,25 +297,28 @@ footer nav ul {
 	padding: 20px;
 	border: 1px solid #888;
 	width: 700px;
-	height: 60%;
+	max-height: 80%;
 	border-radius: 20px;
 	border-bottom: 1px solid #1D6154;
   }
   .modal_content_photos{
     display: flex;
     gap: 10px;
-    width: 90%;
-    margin-top: 10%;
+    width: 70%;
     flex-direction: row;
     flex-wrap: wrap;
-	margin-left: 20%;
   }
   .modal_photos{
 	display: flex;
 	flex-direction: column;
 	height: 150px;
-	width: 120px;
+	width: 115px;
 	object-fit: cover;
+	margin-bottom: 20px;
+  }
+  .modal_photos span{
+	position: relative;
+    top: -13px;
   }
   .modal_photos img{
 	height: 90%;
@@ -324,7 +327,7 @@ footer nav ul {
   }
   .modal_title{
 	position: relative;
-    top: 50px;
+    top: 20px;
   }
   .modal_editer{
 	position: relative;
@@ -332,16 +335,22 @@ footer nav ul {
   }
   .modal_suppr_icon{
 	display: flex;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     background-color: black;
     color: white;
     position: relative;
-    top: -115px;
+    top: -127px;
     right: -90px;
     align-items: center;
     justify-content: center;
 	border-radius: 5px;
+	padding: 3px;
+	cursor: pointer;
+}
+.modal_suppr_icon img{
+	width: 15px;
+	height: 15px;
 }
 .openModal{
 	height: 20px;

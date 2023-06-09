@@ -49,8 +49,9 @@ let button = form.submit.addEventListener("click",getInfo);
           if (data.error) {
             alert("Email ou mot de passe incorrect !"); /*displays error message*/
           } else {
+            localStorage.setItem('token', data.token);
             window.open(
-              "file:///C:/Users/Adeline/Desktop/Sam/Projet6/FrontEnd/indexAdmin.html"
+              "C:/Users/Adeline/Desktop/Sam/Projet6/FrontEnd/indexAdmin.html"
             ); /*opens the target page while Id & password matches*/
           }
         })
