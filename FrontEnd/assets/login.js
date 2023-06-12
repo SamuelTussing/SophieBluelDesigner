@@ -34,7 +34,7 @@ let button = form.submit.addEventListener("click",getInfo);
     fetch(login, {
         method: "POST",
         headers: {
-          Accept: "application/json, text/plain, */*",
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -45,13 +45,12 @@ let button = form.submit.addEventListener("click",getInfo);
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          // code here //
           if (data.error) {
             alert("Email ou mot de passe incorrect !"); /*displays error message*/
           } else {
-            localStorage.setItem('token', data.token);
+            sessionStorage.setItem('token', data.token);
             window.open(
-              "C:/Users/Adeline/Desktop/Sam/Projet6/FrontEnd/indexAdmin.html"
+              "./indexAdmin.html"
             ); /*opens the target page while Id & password matches*/
           }
         })

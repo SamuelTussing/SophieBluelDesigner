@@ -1,7 +1,7 @@
-let token = sessionStorage.getItem('token')
-console.log(token)
 
 document.body.onload=function(){
+   let token = sessionStorage.getItem('token')
+   //console.log(token)
 
 //creation de l'ouverture et de la fermeture du modal
 const modal = document.querySelector(".modal")
@@ -33,15 +33,17 @@ fetch("http://localhost:5678/api/works")
         for (i=0; i<data.length; i++){
             const card = document.createElement("div")
             card.classList.add("modal_photos")
-            card.setAttribute("id",[i])
+            //card.setAttribute("id",[i])
             const image = document.createElement("img")
             image.src = data[i].imageUrl
             const binDiv = document.createElement("div")
             binDiv.classList.add("modal_suppr_icon")
-            binDiv.setAttribute("id",[i])
+            //binDiv.setAttribute("id",[i])
             const binIcon = document.createElement("img")
-            binIcon.setAttribute("id",[i])
+            binIcon.classList.add("btn")
             binIcon.src = '../FrontEnd/assets/icons/trash-can-solid-white.png'
+            binIcon.setAttribute("id",[i])
+            //console.log(binIcon.id)
             const editText = document.createElement("span")
             editText.innerHTML = "éditer"
 
@@ -51,21 +53,28 @@ fetch("http://localhost:5678/api/works")
             card.appendChild(editText)
             binDiv.appendChild(binIcon)
         }
-
-    //binDiv id = index de la photo ou id+1 de la photo
     
-    const binDiv = document.querySelectorAll(".modal_suppr_icon")
-  
-    binDiv.forEach(div => {
-        div.addEventListener("click",function(){
-            let value = binDiv.id;
-            console.log(value)
+    //Btn id = index de la photo ou id+1 de la photo
+    const Btn = document.querySelectorAll(".btn")
+    //console.log(Btn)
+
+    for(let i=0 ; i<Btn.length ; i++){
+        Btn[i].addEventListener("click",function(event){
+            let index=Btn[i].id
+            fetch('http://localhost:5678/api/works/' + index,{
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+              },
         })
-
+        .then(reponse => reponse.json())
+        .then(reponse =>console.log(reponse))
+        })
+    }
     })
 
-    })
-
+ 
+    }
 
     //génération des travaux dans le portfolio
 
@@ -172,4 +181,3 @@ fetch("http://localhost:5678/api/works")
 
 
 
-}
