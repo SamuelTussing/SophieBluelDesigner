@@ -14,7 +14,7 @@ openBtn.onclick = function(){
 closeBtn.onclick = function(){
     modal.style.display = "none"
 }
-// When the user clicks anywhere outside of the modal, close it
+// le modal se ferme si l'utilisateur click en dehors
 window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
@@ -23,7 +23,7 @@ window.onclick = function(event) {
 //fin modal
 
 
-//génération de la liste dans le modal
+//génération de la liste des projets dans le modal
 fetch("http://localhost:5678/api/works")
     .then(reponse => reponse.json())
     .then(data =>{
@@ -58,6 +58,8 @@ fetch("http://localhost:5678/api/works")
     const Btn = document.querySelectorAll(".btn")
     //console.log(Btn)
 
+    //au click sur une icone on récupère son id et on supprime le projet avec index ===
+    // on vérifie le token pour donner l'autorisation de supprimer
     for(let i=0 ; i<Btn.length ; i++){
         Btn[i].addEventListener("click",function(event){
             let index=Btn[i].id
@@ -75,6 +77,27 @@ fetch("http://localhost:5678/api/works")
 
  
     }
+
+    const addButton = document.querySelector('.modal_addBtn');
+    const modalGallery = document.querySelector('.modalLVL1');
+    const returnBtn = document.querySelector('.returnmodal');
+    const modalAddPhoto = document.querySelector('.modalLVL2');
+    const close2Btn = document.querySelector('.close2');
+
+    addButton.onclick = function(){
+        modalGallery.style.display = "none"
+        modalAddPhoto.style.display = "flex"
+    }
+
+    returnBtn.onclick = function(){
+        modalAddPhoto.style.display = "none"
+        modalGallery.style.display = "flex"
+    }
+
+    close2Btn.onclick = function(){
+        modalAddPhoto.style.display = "none"
+    }
+
 
     //génération des travaux dans le portfolio
 
