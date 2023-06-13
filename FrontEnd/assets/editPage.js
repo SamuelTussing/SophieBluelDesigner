@@ -42,7 +42,7 @@ fetch("http://localhost:5678/api/works")
             const binIcon = document.createElement("img")
             binIcon.classList.add("btn")
             binIcon.src = '../FrontEnd/assets/icons/trash-can-solid-white.png'
-            binIcon.setAttribute("id",[i])
+            binIcon.setAttribute("id",data[i].id)
             //console.log(binIcon.id)
             const editText = document.createElement("span")
             editText.innerHTML = "éditer"
@@ -52,17 +52,19 @@ fetch("http://localhost:5678/api/works")
             card.appendChild(binDiv)
             card.appendChild(editText)
             binDiv.appendChild(binIcon)
+            
         }
     
-    //Btn id = index de la photo ou id+1 de la photo
+    //Btn id = index de la photo
     const Btn = document.querySelectorAll(".btn")
-    //console.log(Btn)
+        
 
     //au click sur une icone on récupère son id et on supprime le projet avec index ===
     // on vérifie le token pour donner l'autorisation de supprimer
     for(let i=0 ; i<Btn.length ; i++){
         Btn[i].addEventListener("click",function(event){
-            let index=Btn[i].id
+            let index= Btn[i].id
+            console.log(index)
             fetch('http://localhost:5678/api/works/' + index,{
             method: 'DELETE',
             headers: {
@@ -78,12 +80,18 @@ fetch("http://localhost:5678/api/works")
  
     }
 
+    //bouton "ajouter une photo"
     const addButton = document.querySelector('.modal_addBtn');
+    //page modal avec portfolio
     const modalGallery = document.querySelector('.modalLVL1');
+    //bouton flèche sur page modal ajout de projet
     const returnBtn = document.querySelector('.returnmodal');
+    //page modal ajout de projet
     const modalAddPhoto = document.querySelector('.modalLVL2');
+    //bouton de fermeture page modal ajout de projet
     const close2Btn = document.querySelector('.close2');
 
+    //on bascule d'une page modale à l'autre à l'aide des boutons
     addButton.onclick = function(){
         modalGallery.style.display = "none"
         modalAddPhoto.style.display = "flex"
@@ -97,6 +105,77 @@ fetch("http://localhost:5678/api/works")
     close2Btn.onclick = function(){
         modalAddPhoto.style.display = "none"
     }
+
+//Une preview image apparait dans la modale après le chargement de celle-ci
+    //on récupère le bouton d'ajout de projet
+    const addProjectBtn = document.querySelector('.custom-file-upload');
+    const previewImg = document.querySelector('.previewImg');
+    const Title = document.getElementById('title');
+    const categorySelection = document.getElementById('category-select');
+
+ 
+    let openFile = function(event) {
+        let input = event.target;
+    
+        let reader = new FileReader();
+        reader.onload = function(){
+            //on récupère le résultat de filereader (image chargée)
+          let dataURL = reader.result;
+            //on récupère la div pour la preview img
+          let output = document.querySelector('.previewImg');
+            //on modifie la source de notre balise img pour la preview
+          output.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+      };
+
+
+//Envoi du projet vers l'API si les champs sont remplis
+    const SendButton = document.querySelector('.modal_Valider');
+    const errorMsg = document.getElementById('error');
+    
+
+
+    window.addEventListener("change", function(){
+        if(previewImg.src !== "#" && Title.value !== "" && categorySelection.value !== ""){
+            SendButton.style.backgroundColor = "#1D6154";
+            errorMsg.style.opacity = 0;
+            SendButton.classList.remove("errorAnim");
+          }else{
+            SendButton.style.backgroundColor = "#A7A7A7";
+            errorMsg.style.opacity = 0;
+            SendButton.classList.remove("errorAnim");
+          }
+    })
+
+    SendButton.addEventListener("click", function(){
+        let newImgUrl = document.getElementById('file-upload').files[0];
+        const formData = new FormData()
+        formData.append("image", newImgUrl)
+        formData.append("title", Title.value)
+        formData.append("category", categorySelection.value)
+
+
+        if(previewImg.src !== "#" && Title.value !== "" && categorySelection.value !== ""){
+
+            fetch('http://localhost:5678/api/works/',{
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+              },
+            body : formData
+        })
+        .then(reponse => reponse.json())
+        .then(reponse3 => console.log(reponse3))        
+    
+          }else{
+            SendButton.style.backgroundColor = "#A7A7A7";
+            errorMsg.style.opacity = 1;
+            SendButton.classList.add("errorAnim");
+            console.log(newImgUrl)
+          }
+    })
+      
 
 
     //génération des travaux dans le portfolio

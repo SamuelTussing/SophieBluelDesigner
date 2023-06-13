@@ -301,6 +301,28 @@ footer nav ul {
 	border-radius: 20px;
 	border-bottom: 1px solid #1D6154;
   }
+
+.errorAnim{
+	animation: pulse 500ms 1 both;
+}
+
+  @keyframes pulse {
+    10%{
+        transform: rotate(2deg);
+    }
+    20%{
+        transform: rotate(-2deg);
+    }
+    30%{
+        transform: rotate(2deg);
+    }
+    40%{
+        transform: rotate(-2deg);
+    }
+	50%{
+        transform: rotate(0deg);
+    }
+}
   .modal_content_photos{
     display: flex;
     gap: 10px;
@@ -463,11 +485,15 @@ select{
 	justify-content: space-around;
 	align-items: center;
 	color:#737374;
+	overflow: hidden;
+	padding-bottom: 10px;
 }
 .divAjoutImage i{
 	color:#73737479;
 	font-size: 40px;
-	margin-top: 10px;
+}
+.divAjoutImage span{
+margin-bottom: 1em;
 }
 input[type="file"] {
     display: none;
@@ -501,4 +527,16 @@ input[type="file"] {
     text-align: center;
     border-radius: 60px;
 	cursor: pointer;
+}
+.previewImg{
+	height: 110%;
+    object-fit: contain;
+    position: relative;
+    top: 72px;
+	margin: 2em;
+}
+#error{
+	opacity: 0;
+	color: red;
+	margin-top: 20px;
 }

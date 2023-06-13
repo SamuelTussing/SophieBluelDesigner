@@ -61,23 +61,27 @@
 	</div>
 	<form action="#" method="post" class="formulaire">
 		<div class="divAjoutImage">
+			<img src="" class="previewImg">
 			<i class="fa-regular fa-image"></i>
 			<label for="file-upload" class="custom-file-upload">
 			  + Ajouter photo
 			</label>
 			<input id="file-upload"  type="file"
+			onchange='openFile(event)'
+			name="imageUrl"
        		accept="image/png, image/jpeg">
 			<span>jpg,png : 4Mo max</span>
 		</div>
 		<label for="title">Titre</label>
 		<input type="text" class="labelModal" id="title" name="title">
 		<label for="category-select">Category</label>
-		<select name="categorys" id="category-select">
+		<select name="category" id="category-select">
 			<option value=""></option>
-			<option value="Objets">Objets</option>
-			<option value="Appartements">Appartements</option>
-			<option value="Objets">Hotels & Restaurants</option>
+			<option value="1">Objets</option>
+			<option value="2">Appartements</option>
+			<option value="3">Hotels & Restaurants</option>
 		</select>
+		<span id="error">Formulaire incomplet ! Merci de remplir tous les champs.</span>
 	</form>
 	<div class="modal_modif_btns">
 		<div class="modal_Valider">
