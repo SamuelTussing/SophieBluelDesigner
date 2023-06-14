@@ -32,9 +32,10 @@ fetch("http://localhost:5678/api/works")
         for (i=0; i<data.length; i++){
             const card = document.createElement("div")
             card.classList.add("modal_photos")
-            //card.setAttribute("id",[i])
+            card.setAttribute("id","a"+ data[i].id)
             const image = document.createElement("img")
             image.src = data[i].imageUrl
+            //image.setAttribute("id",data[i].id)
             const binDiv = document.createElement("div")
             binDiv.classList.add("modal_suppr_icon")
             //binDiv.setAttribute("id",[i])
@@ -72,7 +73,11 @@ fetch("http://localhost:5678/api/works")
         })
         .then(reponse => reponse.json())
         .then(reponse =>console.log(reponse))
+        const projetSupp = document.getElementById("a"+index)
+        projetSupp.classList.add("none")
+
         })
+    
     }
     })
 
@@ -149,6 +154,7 @@ fetch("http://localhost:5678/api/works")
 
     SendButton.addEventListener("click", function(){
         let newImgUrl = document.getElementById('file-upload').files[0];
+        let imgUrl = document.querySelector('.divAjoutImage img').src
         const formData = new FormData()
         formData.append("image", newImgUrl)
         formData.append("title", Title.value)
@@ -165,13 +171,27 @@ fetch("http://localhost:5678/api/works")
             body : formData
         })
         .then(reponse => reponse.json())
-        .then(reponse3 => console.log(reponse3))        
+        .then(reponse3 => console.log(reponse3))  
+        modalAddPhoto.style.display = "none" 
+
+        const card = document.createElement("figure")
+        card.setAttribute("id", categorySelection.value)  
+        const image = document.createElement("img")  
+        image.src = imgUrl
+        const imgTitle = document.createElement("figcaption")
+        imgTitle.innerHTML = Title.value
+
+        const gallery0 = document.querySelector('.gallery')
+        gallery0.appendChild(card)
+        card.appendChild(image)
+        card.appendChild(imgTitle)
     
+
           }else{
             SendButton.style.backgroundColor = "#A7A7A7";
             errorMsg.style.opacity = 1;
             SendButton.classList.add("errorAnim");
-            console.log(newImgUrl)
+            console.log(imgUrl)
           }
     })
       
@@ -196,6 +216,7 @@ fetch("http://localhost:5678/api/works")
                 //création des éléments image et assignation du contenu dynamique via l'API
                 const card = document.createElement("figure")
                 card.setAttribute("id", data[i].category.name)
+                card.setAttribute("data-id", data[i].id)
                 const image = document.createElement("img")
                 image.src = data[i].imageUrl
                 const imgTitle = document.createElement("figcaption")
@@ -207,70 +228,66 @@ fetch("http://localhost:5678/api/works")
                 card.appendChild(imgTitle)
             }
 
-            let IdMax = 0
+//création des boutons filtres catégories
 
-            //on récupère dynamiquement le nombre de catégories dispos sur l'API
-            let nbrCategory = 0
+fetch("http://localhost:5678/api/categories")
+    .then(reponse => reponse.json())
+    //.then(test => console.table(test))
+    .then(cat =>{
+        
+        for(let i=0 ; i< cat.length ; i++){
+            const button= document.querySelector('.filterSection')
 
-            for (i = 0; i < data.length; i++) {
-                if (data[i].category.id > nbrCategory) {
-                    nbrCategory = data[i].category.id
-                }
+            const buttonDiv= document.createElement("li")
+            //buttonDiv.className = "filterSection_filter"
+            //buttonDiv.setAttribute("data-filter",data[i].category.name)
+            buttonDiv.innerHTML = cat[i].name
+    
+            button.appendChild(buttonDiv)
+        }
+    
 
-            }
-            //nbrcategory=3, on doit créer des variables avec nom category dynamiquement
 
-            let category1 = data[0].category.name
-            let category2 = data[1].category.name
-            let category3 = data[2].category.name
+//filtre au clique sur les boutons dédié
 
-            //création des boutons filtres en fonction des category existantes
-            for (i = 0; i < nbrCategory; i++) {
-                const button = document.querySelector('.filterSection')
+//on récupère une référence vers les boutons et vers les articles
+const liItem = document.querySelectorAll('ul li');
+const imgItem = document.querySelectorAll('.product figure');
 
-                const buttonDiv = document.createElement("li")
-                //buttonDiv.className = "filterSection_filter"
-                //buttonDiv.setAttribute("data-filter",data[i].category.name)
-                buttonDiv.innerHTML = data[i].category.name
-
-                button.appendChild(buttonDiv)
-
-            }
-
-            //filtre au clique sur les boutons dédié
-
-            //on récupère une référence vers les boutons et vers les articles
-            const liItem = document.querySelectorAll('ul li');
-            const imgItem = document.querySelectorAll('.product figure');
-
-            //pour chaque clique sur un bouton "filtre"
+    //pour chaque clique sur un bouton "filtre"
+    liItem.forEach(li => {
+        li.addEventListener("click",function(){
+            //on ajoute la class active au bouton cliqué et on le retire aux autres
+            //on récupère la valeur du filtre avec "value"
+            let value = li.textContent
             liItem.forEach(li => {
-                li.addEventListener("click", function () {
-                    //on ajoute la class active au bouton cliqué et on le retire aux autres
-                    //on récupère la valeur du filtre avec "value"
-                    let value = li.textContent
-                    liItem.forEach(li => {
-                        li.className = '';
-                    });
-                    li.className = 'active';
-
-                    //on passe chaque réf en revue et on compare son id avec la valeur du bouton filtre
-                    // si valeurs identiques alors l'article reste visible (block)
-                    //si valeur différentes alors article invisible (none + scale(0)
-                    for (i = 0; i < data.length; i++) {
-
-                        if (imgItem[i].getAttribute('id') == value || value == "Tous") {
-                            imgItem[i].style.transform = 'scale(1)';
-                            imgItem[i].style.display = 'block';
-                        } else {
-                            imgItem[i].style.transform = 'scale(0)';
-                            imgItem[i].style.display = 'none';
-                        }
-                    }
-
+                li.className = '';
+            });
+            li.className = 'active';
+        
+            //on passe chaque réf en revue et on compare son id avec la valeur du bouton filtre
+            // si valeurs identiques alors l'article reste visible (block)
+            //si valeur différentes alors article invisible (none + scale(0)
+            for(i=0;i<data.length;i++){
+                
+                if(imgItem[i].getAttribute('id') == value || value == "Tous"){
+                    imgItem[i].style.transform = 'scale(1)';
+                    imgItem[i].style.display = 'block';
+                }else{
+                    imgItem[i].style.transform = 'scale(0)';
+                    imgItem[i].style.display = 'none';
                 }
-                )
-            })
+            }
+
+        }
+    )})
+})
+
+.catch((err) => {
+    alert("Erreur serveur");
+
+
+      })            
 
         })
 

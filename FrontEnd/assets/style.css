@@ -362,7 +362,7 @@ footer nav ul {
     background-color: black;
     color: white;
     position: relative;
-    top: -127px;
+    top: -120px;
     right: -90px;
     align-items: center;
     justify-content: center;
@@ -539,4 +539,7 @@ input[type="file"] {
 	opacity: 0;
 	color: red;
 	margin-top: 20px;
+}
+.none{
+	display: none;
 }
