@@ -28,35 +28,26 @@ for (i=0; i<data.length; i++){
     card.appendChild(imgTitle)
 }
 
-let IdMax = 0
 
-//on récupère dynamiquement le nombre de catégories dispos sur l'API
-let nbrCategory = 0
+//création des boutons filtres catégories
 
-for (i=0; i<data.length;i++){
-    if (data[i].category.id>nbrCategory){
-        nbrCategory=data[i].category.id
-    }
+fetch("http://localhost:5678/api/categories")
+    .then(reponse => reponse.json())
+    //.then(test => console.table(test))
+    .then(cat =>{
+        
+        for(let i=0 ; i< cat.length ; i++){
+            const button= document.querySelector('.filterSection')
 
-}
-//nbrcategory=3, on doit créer des variables avec nom category dynamiquement
+            const buttonDiv= document.createElement("li")
+            //buttonDiv.className = "filterSection_filter"
+            //buttonDiv.setAttribute("data-filter",data[i].category.name)
+            buttonDiv.innerHTML = cat[i].name
+    
+            button.appendChild(buttonDiv)
+        }
+    
 
-let category1=data[0].category.name
-let category2=data[1].category.name
-let category3=data[2].category.name
-
-//création des boutons filtres en fonction des category existantes
-for (i=0; i<nbrCategory;i++){
-    const button= document.querySelector('.filterSection')
-
-    const buttonDiv= document.createElement("li")
-    //buttonDiv.className = "filterSection_filter"
-    //buttonDiv.setAttribute("data-filter",data[i].category.name)
-    buttonDiv.innerHTML = data[i].category.name
-
-    button.appendChild(buttonDiv)
-
-}
 
 //filtre au clique sur les boutons dédié
 
@@ -67,6 +58,7 @@ const imgItem = document.querySelectorAll('.product figure');
     //pour chaque clique sur un bouton "filtre"
     liItem.forEach(li => {
         li.addEventListener("click",function(){
+            console.log("hello")
             //on ajoute la class active au bouton cliqué et on le retire aux autres
             //on récupère la valeur du filtre avec "value"
             let value = li.textContent
@@ -91,7 +83,7 @@ const imgItem = document.querySelectorAll('.product figure');
 
         }
     )})
-
+})
 })
 .catch((err) => {
     alert("Erreur serveur");
