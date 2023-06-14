@@ -93,5 +93,10 @@ const imgItem = document.querySelectorAll('.product figure');
     )})
 
 })
-      }
+.catch((err) => {
+    alert("Erreur serveur");
+
+
+      })
+    }
     

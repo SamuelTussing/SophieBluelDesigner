@@ -1,7 +1,6 @@
 
 document.body.onload=function(){
-   let token = sessionStorage.getItem('token')
-   //console.log(token)
+
 
 //creation de l'ouverture et de la fermeture du modal
 const modal = document.querySelector(".modal")
