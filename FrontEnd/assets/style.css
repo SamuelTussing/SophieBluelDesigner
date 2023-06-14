@@ -301,6 +301,28 @@ footer nav ul {
 	border-radius: 20px;
 	border-bottom: 1px solid #1D6154;
   }
+
+.errorAnim{
+	animation: pulse 500ms 1 both;
+}
+
+  @keyframes pulse {
+    10%{
+        transform: rotate(2deg);
+    }
+    20%{
+        transform: rotate(-2deg);
+    }
+    30%{
+        transform: rotate(2deg);
+    }
+    40%{
+        transform: rotate(-2deg);
+    }
+	50%{
+        transform: rotate(0deg);
+    }
+}
   .modal_content_photos{
     display: flex;
     gap: 10px;
@@ -364,7 +386,8 @@ footer nav ul {
 	width: 70%;
 	margin-top: 20px;
 }
-.modal_addBtn{
+.modal_addBtn
+{
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -377,6 +400,7 @@ footer nav ul {
 	height: 40px;
     text-align: center;
     border-radius: 60px;
+	cursor: pointer;
 }
 .modal_suppr_btn{
 	color: red;
@@ -397,3 +421,122 @@ footer nav ul {
 	text-decoration: none;
 	cursor: pointer;
   }
+
+  .topModal{
+	display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+	align-items: center;
+  }
+  .topModal span{
+	font-size: 25px;
+  }
+  .returnmodal{
+	cursor: pointer;
+  }
+
+  .close2 {
+cursor: pointer;
+  }
+  .modal_title2{
+	position: relative;
+    top: 20px;
+	margin-bottom: 50px;
+  }
+  label{
+    font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 14px;
+	color: #3d3d3d;
+    line-height: 16px;
+    margin: 2em 0 1em 0;
+}
+
+input,
+select{
+    width: 379px;
+    height: 51px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);   
+    border : none;
+    font-family:'Work Sans';
+    font-size: 20px;
+    padding-left: 15px;
+    color: #1D6154;
+}
+.formulaire{
+	display: flex;
+	flex-direction: column;
+}
+.divAjoutImage{
+	width: 420px;
+	height: 169px;
+	left: 510px;
+	top: 786px;
+	background: #E8F1F7;
+	border-radius: 3px;
+}
+
+/*style pour ajout de photo dans modal*/
+.divAjoutImage{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	color:#737374;
+	overflow: hidden;
+	padding-bottom: 10px;
+}
+.divAjoutImage i{
+	color:#73737479;
+	font-size: 40px;
+}
+.divAjoutImage span{
+margin-bottom: 1em;
+}
+input[type="file"] {
+    display: none;
+}
+
+
+.custom-file-upload {
+    border-radius: 50px;
+    display: inline-block;
+    padding: 14px 12px;
+	width: 40%;
+    cursor: pointer;
+    background : #CBD6DC;
+	text-align: center;
+	margin-top: 10px;
+	font-weight: 600;
+	color:#306685;
+	;
+}
+.modal_Valider{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Syne';
+    font-weight: 700;
+    color: white;
+    background-color: #a7a7a7;
+    margin: 2em auto;
+    width: 180px;
+	height: 40px;
+    text-align: center;
+    border-radius: 60px;
+	cursor: pointer;
+}
+.previewImg{
+	height: 110%;
+    object-fit: contain;
+    position: relative;
+    top: 72px;
+	margin: 2em;
+}
+#error{
+	opacity: 0;
+	color: red;
+	margin-top: 20px;
+}
