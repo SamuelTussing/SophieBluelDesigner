@@ -1,7 +1,6 @@
 
 document.body.onload=function(){
 
-
 //creation de l'ouverture et de la fermeture du modal
 const modal = document.querySelector(".modal")
 const closeBtn = document.querySelector(".close")
@@ -23,6 +22,7 @@ window.onclick = function(event) {
 
 
 //génération de la liste des projets dans le modal
+
 fetch("http://localhost:5678/api/works")
     .then(reponse => reponse.json())
     .then(data =>{
@@ -64,7 +64,6 @@ fetch("http://localhost:5678/api/works")
     for(let i=0 ; i<Btn.length ; i++){
         Btn[i].addEventListener("click",function(event){
             let index= Btn[i].id
-            console.log(index)
             fetch('http://localhost:5678/api/works/' + index,{
             method: 'DELETE',
             headers: {
@@ -75,6 +74,7 @@ fetch("http://localhost:5678/api/works")
         .then(reponse =>console.log(reponse))
         const projetSupp = document.getElementById("a"+index)
         projetSupp.classList.add("none")
+        
 
         })
     
@@ -171,21 +171,58 @@ fetch("http://localhost:5678/api/works")
             body : formData
         })
         .then(reponse => reponse.json())
-        .then(reponse3 => console.log(reponse3))  
-        modalAddPhoto.style.display = "none" 
+        .then(reponse3 => {
+            console.log(reponse3)
+            modalAddPhoto.style.display = "none" 
 
-        const card = document.createElement("figure")
-        card.setAttribute("id", categorySelection.value)  
-        const image = document.createElement("img")  
-        image.src = imgUrl
-        const imgTitle = document.createElement("figcaption")
-        imgTitle.innerHTML = Title.value
 
-        const gallery0 = document.querySelector('.gallery')
-        gallery0.appendChild(card)
-        card.appendChild(image)
-        card.appendChild(imgTitle)
-    
+
+            //mise a jour du portfolio
+                    const card = document.createElement("figure")
+                    card.setAttribute("id", categorySelection.value)  
+                    const image = document.createElement("img")  
+                    image.src = imgUrl
+                    const imgTitle = document.createElement("figcaption")
+                    imgTitle.innerHTML = Title.value
+                    previewImg.src = "#"
+                    Title.value = ""
+                    categorySelection.value = ""
+            
+                    const gallery0 = document.querySelector('.gallery')
+                    gallery0.appendChild(card)
+                    card.appendChild(image)
+                    card.appendChild(imgTitle)
+                
+            //mise a jour de la liste dans le modal
+            
+             const modalPhoto = document.querySelector('.modal_content_photos')
+            
+             const card2 = document.createElement("div")
+                        card2.classList.add("modal_photos")
+                        card2.setAttribute("id","a"+ reponse3.id)
+                        const image2 = document.createElement("img")
+                        image2.src = imgUrl
+                        //image.setAttribute("id",data[i].id)
+                        const binDiv2 = document.createElement("div")
+                        binDiv2.classList.add("modal_suppr_icon")
+                        //binDiv.setAttribute("id",[i])
+                        const binIcon2 = document.createElement("img")
+                        binIcon2.classList.add("btn")
+                        binIcon2.src = '../FrontEnd/assets/icons/trash-can-solid-white.png'
+                        binIcon2.setAttribute("id",reponse3.id)
+                        //console.log(binIcon.id)
+                        const editText2 = document.createElement("span")
+                        editText2.innerHTML = "éditer"
+            
+                        modalPhoto.appendChild(card2)
+                        card2.appendChild(image2)
+                        card2.appendChild(binDiv2)
+                        card2.appendChild(editText2)
+                        binDiv2.appendChild(binIcon2)
+            
+            
+
+        })  
 
           }else{
             SendButton.style.backgroundColor = "#A7A7A7";
@@ -204,6 +241,7 @@ fetch("http://localhost:5678/api/works")
     //fetch créé le lien avec l'API
     //.then recupere les donnees et les traite en json
     //.then donne donnees traduite avec data
+
     fetch("http://localhost:5678/api/works")
         .then(reponse => reponse.json())
         //.then(test => console.table(test))
@@ -217,6 +255,7 @@ fetch("http://localhost:5678/api/works")
                 const card = document.createElement("figure")
                 card.setAttribute("id", data[i].category.name)
                 card.setAttribute("data-id", data[i].id)
+                card.classList.add("fig")
                 const image = document.createElement("img")
                 image.src = data[i].imageUrl
                 const imgTitle = document.createElement("figcaption")
@@ -290,7 +329,7 @@ const imgItem = document.querySelectorAll('.product figure');
       })            
 
         })
-
+    
 
 
 
