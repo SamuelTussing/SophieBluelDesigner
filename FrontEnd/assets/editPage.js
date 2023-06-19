@@ -4,11 +4,11 @@
 const modal = document.querySelector(".modal")
 const closeBtn = document.querySelector(".close")
 const openBtn = document.querySelector(".openModal")
-const logOut = document.querySelector(".logout")
+const logOut = document.getElementById("logout")
 
-logOut.onclick = function(){
-    sessionStorage.removeItem("token");
-}
+logOut.addEventListener("click",function(){
+    sessionStorage.clear
+}) 
 
 openBtn.onclick = function(){
     modal.style.display = "block"
@@ -149,7 +149,7 @@ fetch("http://localhost:5678/api/works")
     const mm = document.querySelector('.openModal')
     mm.addEventListener("click",function(){
         let Btn = document.querySelectorAll('.btn')
-        console.log(Btn)
+        //console.log(Btn)
     
     
 
@@ -166,9 +166,7 @@ fetch("http://localhost:5678/api/works")
         })
             .then(response => response.json())
             .then(data0 => console.log(data0))
-            .catch((err) => {
-                alert("Unauthorized");
-                  })
+            
 
         //mise a jour portfolio
                 //ON SUPPRIME LE CONTENU DU PORTFOLIO ET DU MODAL
@@ -240,7 +238,9 @@ fetch("http://localhost:5678/api/works")
             modalAddPhoto.style.display = "none" 
 
 
-
+            previewImg.src="";
+            Title.value="";
+            categorySelection.value="";
             //ON SUPPRIME LE CONTENU DU PORTFOLIO ET DU MODAL
             document.querySelector('.gallery').innerHTML="";
             document.querySelector('.modal_content_photos').innerHTML="";
@@ -266,7 +266,7 @@ fetch("http://localhost:5678/api/works")
             SendButton.style.backgroundColor = "#A7A7A7";
             errorMsg.style.opacity = 1;
             SendButton.classList.add("errorAnim");
-            console.log(imgUrl)
+            //console.log(imgUrl)
           }
     })
       
@@ -326,7 +326,6 @@ const imgItem = document.querySelectorAll('.product figure');
     //pour chaque clique sur un bouton "filtre"
     liItem.forEach(li => {
         li.addEventListener("click",function(){
-            console.log("hello")
             //on ajoute la class active au bouton cliqué et on le retire aux autres
             //on récupère la valeur du filtre avec "value"
             let value = li.textContent
