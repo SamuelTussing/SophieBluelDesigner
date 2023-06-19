@@ -529,7 +529,7 @@ input[type="file"] {
 	cursor: pointer;
 }
 .previewImg{
-	height: 110%;
+	height: 180px;
     object-fit: contain;
     position: relative;
     top: 72px;
