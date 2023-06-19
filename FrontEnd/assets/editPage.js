@@ -4,11 +4,11 @@
 const modal = document.querySelector(".modal")
 const closeBtn = document.querySelector(".close")
 const openBtn = document.querySelector(".openModal")
-const logOut = document.querySelector(".logout")
+const logOut = document.getElementById("logout")
 
-logOut.onclick = function(){
-    sessionStorage.removeItem("token");
-}
+logOut.addEventListener("click",function(){
+    sessionStorage.clear
+}) 
 
 openBtn.onclick = function(){
     modal.style.display = "block"
