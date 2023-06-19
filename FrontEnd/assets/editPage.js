@@ -4,6 +4,11 @@
 const modal = document.querySelector(".modal")
 const closeBtn = document.querySelector(".close")
 const openBtn = document.querySelector(".openModal")
+const logOut = document.querySelector(".logout")
+
+logOut.onclick = function(){
+    sessionStorage.removeItem("token");
+}
 
 openBtn.onclick = function(){
     modal.style.display = "block"
@@ -161,7 +166,9 @@ fetch("http://localhost:5678/api/works")
         })
             .then(response => response.json())
             .then(data0 => console.log(data0))
-            
+            .catch((err) => {
+                alert("Unauthorized");
+                  })
 
         //mise a jour portfolio
                 //ON SUPPRIME LE CONTENU DU PORTFOLIO ET DU MODAL
@@ -176,10 +183,12 @@ fetch("http://localhost:5678/api/works")
                 genererlisteModal(data2)
                 creationPortfolio(data2)
                 })
+                
 
         })
     
     }
+    
 })
 
     
@@ -248,7 +257,10 @@ fetch("http://localhost:5678/api/works")
              
             
 
-        })  
+        })
+        .catch((err) => {
+            alert("Unauthorized");
+              })  
 
           }else{
             SendButton.style.backgroundColor = "#A7A7A7";
